@@ -1,0 +1,31 @@
+<div class="container">
+  <ul *ngFor="let friend of friends">
+    <li> {{ friend.name }} <span (click)="removeFriend(friend.id)"> <a>Delete</a></span></li>
+  </ul>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add New Friend</button>
+
+  <form [formGroup]="friendFrom" name="friendFrom" (submit)="onSubmit()">
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Friend</h4>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="title">Name</label>
+                <div>
+                  <input type="text" name="title" class="form-control" placeholder="*Enter the name of friend" autocomplete="off" formControlName="name" />
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button [disabled]="processing" type="submit" name="button" class="btn btn-success"data-dismiss="modal" (click)="onSubmit()">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>  
+</div>
