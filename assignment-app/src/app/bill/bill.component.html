@@ -1,3 +1,60 @@
-<p>
-  bill works!
-</p>
+<div class="container">
+  <p>Total Bill Summary:</p>            
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Bill Desc</th>
+        <th>Amount</th>
+        <th>Paid By</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of bills">
+        <td>{{ bill.desc }}</td>
+        <td>{{ bill.amount }}</td>
+        <td>{{ bill.paidBy }}</td>
+        <td> <a> Delete </a></td>
+      </tr>
+    </tbody>
+  </table>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add New Bill</button>
+  
+    <form [formGroup]="billForm" name="billForm" (submit)="onSubmit()">
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-group">
+                  <label for="title">Desc</label>
+                  <div>
+                    <input type="text" name="desc" class="form-control" placeholder="*Enter the bill desc" autocomplete="off" formControlName="desc" />
+                  </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                  <label for="amount">Amount</label>
+                  <div>
+                    <input type="number" name="amount" class="form-control" placeholder="*Enter the bill amount" autocomplete="off" formControlName="amount" />
+                  </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                  <label for="paidBy">Paid By</label>
+                  <div>
+                    <input type="text" name="paidBy" class="form-control" placeholder="*Paid paidBy" autocomplete="off" formControlName="paidBy" />
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button [disabled]="processing" type="submit" name="button" class="btn btn-success"data-dismiss="modal" (click)="onSubmit()">Submit</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>  
+  </div>
+  

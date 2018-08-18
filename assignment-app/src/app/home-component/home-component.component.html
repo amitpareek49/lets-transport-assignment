@@ -1,4 +1,11 @@
-<div class="container">
+<div class="container" *ngIf="!isUsernameEntered">
+      <input type="text" name="username" name="title" class="form-control" placeholder="*Enter your username" autocomplete="off" [(ngModel)]="username" />
+      <br/>
+      <br/>
+      <button class="btn btn-primary" (click) = "userAfterLogin()">Submit</button>
+</div>
+
+<div class="container" *ngIf="isUsernameEntered">
   <ul *ngFor="let friend of friends">
     <li> {{ friend.name }} <span (click)="removeFriend(friend.id)"> <a>Delete</a></span></li>
   </ul>
@@ -27,5 +34,5 @@
         </div>
       </div>
     </div>
-  </form>  
+  </form> 
 </div>

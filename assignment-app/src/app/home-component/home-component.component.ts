@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FriendsService } from '../friends.service';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormGroupName } from '@angular/forms';
 
 @Component({
   selector: 'app-home-component',
@@ -9,6 +9,8 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
 
+  isUsernameEntered: boolean = false;
+  username: string = '';
   newFriend: boolean = false;
   friendsLength;
   friendFrom: FormGroup;
@@ -16,7 +18,7 @@ export class HomeComponent implements OnInit {
   constructor(private friendService: FriendsService, private fromBuilder: FormBuilder) { 
     this.createFriendForm();
   }
-  
+
   createFriendForm(){
     this.friendFrom = this.fromBuilder.group({
       id: [''],
@@ -25,10 +27,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem('friends'))
+    if(localStorage.getItem('friends')) {
       this.friends = JSON.parse(localStorage.getItem('friends'));
-    else
-      this.friends = this.friendService.getFriends();
+      this.isUsernameEntered = JSON.parse(localStorage.getItem('isUsernameEntered'));
+    }
+     else
+       this.friends = this.friendService.getFriends();
   }
 
   onSubmit() {
@@ -44,5 +48,17 @@ export class HomeComponent implements OnInit {
   removeFriend(id) {
     this.friendService.removeFriend(id);
     this.friends = JSON.parse(localStorage.getItem('friends'));
+  }
+
+  userAfterLogin() {
+    this.isUsernameEntered = true;
+    localStorage.setItem('isUsernameEntered', 'true');
+    this.friendService.addUsername(this.username);
+    if(localStorage.getItem('friends')) {
+      this.friends = JSON.parse(localStorage.getItem('friends'));
+      this.isUsernameEntered = true;
+    }
+    else
+      this.friends = this.friendService.getFriends();
   }
 }

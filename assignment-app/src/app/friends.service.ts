@@ -9,7 +9,9 @@ export class FriendsService {
     {id: 1, name: 'Sumit'},
     {id: 2, name: 'Vikas'},
     {id: 3, name: 'Manan'}
-  ]; 
+  ];
+  
+  userBalance: Object = {};
 
   constructor() { 
     this.modifyLocalStorage();
@@ -37,14 +39,17 @@ export class FriendsService {
   }
 
   modifyLocalStorage() {
-    // this.friends = this.friends.map((value) => {
-    //     console.log(value);
-    //     var friend = {};
-    //     var count =0;
-    //     friend['count++']= value['name'];
-    //     return friend;
-    // });
     localStorage.setItem('friends', JSON.stringify(this.friends));
   }
 
+  addUsername(username) {
+    this.userBalance['name'] = username;
+    this.userBalance['owe'] = 0;
+    this.userBalance['get'] = 0;
+    localStorage.setItem('userBalance', JSON.stringify(this.userBalance));
+  }
+
+  getUsername() {
+    return JSON.parse(localStorage.getItem('userBalance'));
+  }
 }
