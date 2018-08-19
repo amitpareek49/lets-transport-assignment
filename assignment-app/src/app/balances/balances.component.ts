@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BalanceService } from './../balance.service';
 
 @Component({
   selector: 'app-balances',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BalancesComponent implements OnInit {
 
-  constructor() { }
+
+  balances: Array<Object> = [];
+  userBalance: Object = [];
+
+  constructor(private balanceService: BalanceService) { }
 
   ngOnInit() {
+    this.balances = JSON.parse(localStorage.getItem('balances'));
+    this.userBalance = JSON.parse(localStorage.getItem('userBalance'));
   }
 
+
+  
 }

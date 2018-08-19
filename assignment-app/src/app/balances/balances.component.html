@@ -1,3 +1,38 @@
-<p>
-  balances works!
-</p>
+<div class="container">
+    <p>Your balances:</p>   
+    
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Money Owed</th>
+            <th>Money Lent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ userBalance.name }}</td>
+            <td>{{ userBalance.owe }}</td>
+            <td>{{ userBalance.get }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    <p>Total Bill Summary of Friends:</p>  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Money Owed</th>
+          <th>Money Lent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let balance of balances">
+          <td>{{ balance.name }}</td>
+          <td>{{ balance.owe }}</td>
+          <td>{{ balance.get }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

@@ -9,7 +9,8 @@ export class BalanceService {
   bills: Array<Object> =[];
   balances: Array<Object>;
   constructor(private friendService: FriendsService) { 
-    console.log(JSON.stringify(friendService.getFriends()));
+
+    if(!localStorage.getItem('balances')) {
     this.balances = friendService.getFriends().map((friend) => {   
         var balance= {};
         balance['id'] = friend['id'];
@@ -19,6 +20,7 @@ export class BalanceService {
         return balance;
     });
     localStorage.setItem('balances', JSON.stringify(this.balances));
+    }
   }
 
   getAllBills() {
@@ -50,7 +52,7 @@ export class BalanceService {
     const totalFriend = this.friendService.getFriends().length + 1;
     const splitAmount = amount/totalFriend;
     if(bill['paidBy'] === userBalance['name']){
-      userBalance['get'] += amount;
+      userBalance['get'] += (amount - splitAmount);
       this.balances = this.balances.map((balance) => {
         balance['name'] = balance['name'];
         balance['owe'] = balance['owe'] + splitAmount;
@@ -62,7 +64,7 @@ export class BalanceService {
       this.balances = this.balances.map((balance) => {
         if(bill['paidBy'] === balance['name']) {
           balance['name'] = balance['name'];
-          balance['get'] = balance['get'] + amount;
+          balance['get'] += (amount-splitAmount);
         } else {
           balance['name'] = balance['name'];
           balance['owe'] += splitAmount;

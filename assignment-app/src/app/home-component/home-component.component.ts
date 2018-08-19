@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
     }
     this.friendService.addFriend(friend);
     this.friends = JSON.parse(localStorage.getItem('friends'));
+    this.friendFrom.reset();
   }
 
   removeFriend(id) {

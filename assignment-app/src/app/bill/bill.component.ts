@@ -45,6 +45,7 @@ export class BillComponent implements OnInit {
     }
     this.balanceService.addBills(bill);
     this.bills = JSON.parse(localStorage.getItem('bills'));
+    this.billForm.reset();
   }
 
 }
